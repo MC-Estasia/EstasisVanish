@@ -1,6 +1,7 @@
 package de.mcestasia.estasiavanish.service;
 
 import de.mcestasia.estasiavanish.EstasiaVanishBukkitPlugin;
+import lombok.Getter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 
+@Getter
 public class DatabaseService {
 
     private final EstasiaVanishBukkitPlugin plugin;
@@ -16,7 +18,6 @@ public class DatabaseService {
     public DatabaseService() {
         this.plugin = EstasiaVanishBukkitPlugin.instance;
         this.connect();
-        this.createTables();
     }
 
     private void connect() {
@@ -26,24 +27,21 @@ public class DatabaseService {
             return;
         }
 
+        System.out.println("Die Datenbankvervindung wird aufgebaut...");
         try {
-            this.connection = DriverManager.getConnection(
-                    "jdbc:mysql://" +
-                            this.plugin.getDatabaseConfigurationManager().getHost() +
-                            ":" +
-                            this.plugin.getDatabaseConfigurationManager().getPort() +
-                            "/" +
-                            this.plugin.getDatabaseConfigurationManager().getDatabase() +
-                            "?autoReconnect=true",
-                    this.plugin.getDatabaseConfigurationManager().getUser(),
-                    this.plugin.getDatabaseConfigurationManager().getPassword());
+            this.connection = DriverManager.getConnection("jdbc:mysql://" + this.plugin.getDatabaseConfigurationManager().getHost() + ":" + this.plugin.getDatabaseConfigurationManager().getPort() + "/" + this.plugin.getDatabaseConfigurationManager().getDatabase() + "?autoReconnect=true", this.plugin.getDatabaseConfigurationManager().getUser(), this.plugin.getDatabaseConfigurationManager().getPassword());
             this.plugin.getLogger().log(Level.INFO, "[MySQL] Die Datenbankverbindung konnte hergestellt werden!");
+            this.createTables();
         } catch (SQLException exception) {
             this.plugin.getLogger().log(Level.WARNING, "[MySQL] Die Datenbankverbindung konnte nicht hergestellt werden!");
         }
     }
 
     public void disconnect() {
+        if (this.connection == null) {
+            System.out.println("[MySQL] Die Datenbankverbindung konnte nicht geschlossen werden, da sie nicht hergestellt wurde!");
+            return;
+        }
         try {
             this.connection.close();
             this.plugin.getLogger().log(Level.INFO, "[MySQL] Die Datenbankverbindung konnte geschlossen werden!");
@@ -64,7 +62,7 @@ public class DatabaseService {
     }
 
     private void createTables() {
-        this.update("CREATE TABLE IF NOT EXISTS vanish(UUID VARCHAR(255), INVENTORY VARCHAR(1024), ARMOR VARCHAR(1024), VANISHED INT(1))");
+        this.update("CREATE TABLE IF NOT EXISTS vanish(UUID VARCHAR(255), INVENTORY TEXT, ARMOR TEXT, VANISHED INT(1))");
     }
 
 }

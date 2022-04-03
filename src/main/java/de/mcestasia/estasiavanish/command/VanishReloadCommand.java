@@ -19,19 +19,17 @@ public class VanishReloadCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
-        if (!(commandSender instanceof Player)) {
+        if (!(commandSender instanceof final Player player)) {
             commandSender.sendMessage("Diesen Befehl kann nur ein Spieler ausführen!");
             return false;
         }
-
-        final Player player = (Player) commandSender;
 
         if (!(player.hasPermission("de.mcestasia.estasiavanish.command.reload"))) {
             player.sendMessage(NO_PERMISSION_MESSAGE);
             return false;
         }
 
-        this.plugin.reloadConfig();
+        this.plugin.reload();
         player.sendMessage(PREFIX + "Die Konfiguration wurde §aerfolgreich §7neu geladen!");
 
         return true;

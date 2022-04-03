@@ -32,18 +32,18 @@ public class DatabaseConfigurationManager {
                     System.out.println("[!] Datenbank Datei erfolgreich erstellt!");
                 }
             } catch (IOException exception) {
-                System.out.println("[»] Datenbank Datei konnte nicht angelegt werden.");
+                System.out.println("[!] Datenbank Datei konnte nicht angelegt werden.");
                 exception.printStackTrace();
             }
         } else {
-            System.out.println("[»] Die Datenbank Datei wurde gefunden.");
+            System.out.println("[!] Die Datenbank Datei wurde gefunden.");
         }
 
     }
 
     public void createDefaultData() {
         if (this.hasData()) {
-            System.out.println("[»] Die Datenbank wurde bereits eingerichtet.");
+            System.out.println("[!] Die Datenbank wurde bereits eingerichtet.");
             return;
         }
 
@@ -69,7 +69,7 @@ public class DatabaseConfigurationManager {
     }
 
     public boolean hasData() {
-        return this.configuration.getBoolean("database.setup");
+        return !(this.configuration.getBoolean("database.setup"));
     }
 
     public String getHost() {

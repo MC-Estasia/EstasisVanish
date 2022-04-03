@@ -27,6 +27,14 @@
             <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>sv.file14.procosmetics</groupId>
+            <artifactId>procosmetics</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/ProCosmetics.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>

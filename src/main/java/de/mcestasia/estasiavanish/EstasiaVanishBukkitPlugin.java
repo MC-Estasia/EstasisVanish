@@ -9,6 +9,7 @@ import de.mcestasia.estasiavanish.manager.DatabaseConfigurationManager;
 import de.mcestasia.estasiavanish.manager.VanishInventoryManager;
 import de.mcestasia.estasiavanish.manager.VanishManager;
 import de.mcestasia.estasiavanish.service.DatabaseService;
+import de.mcestasia.estasiavanish.service.entity.VanishProvider;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +22,7 @@ public class EstasiaVanishBukkitPlugin extends JavaPlugin {
     private VanishInventoryManager vanishInventoryManager;
     private DatabaseConfigurationManager databaseConfigurationManager;
     private DatabaseService databaseService;
+    private VanishProvider vanishProvider;
 
     @Override
     public void onEnable() {
@@ -33,7 +35,7 @@ public class EstasiaVanishBukkitPlugin extends JavaPlugin {
         this.databaseService.disconnect();
     }
 
-    private void reload() {
+    public void reload() {
         this.databaseConfigurationManager.reload();
     }
 
@@ -43,6 +45,7 @@ public class EstasiaVanishBukkitPlugin extends JavaPlugin {
         this.vanishManager = new VanishManager();
         this.databaseConfigurationManager = new DatabaseConfigurationManager();
         this.databaseService = new DatabaseService();
+        this.vanishProvider = new VanishProvider();
 
         this.getCommand("vanish").setExecutor(new VanishCommand());
         this.getCommand("vanishreload").setExecutor(new VanishReloadCommand());

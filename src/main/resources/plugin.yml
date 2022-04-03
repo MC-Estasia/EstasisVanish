@@ -3,6 +3,8 @@ version: 0.1
 author: EstasiaDevelopment
 main: de.mcestasia.estasiavanish.EstasiaVanishBukkitPlugin
 api-version: 1.18
+depend:
+  - ProCosmetics
 
 commands:
   vanish:
