@@ -1,0 +1,11 @@
+name: EstasiaVanish
+version: 0.1
+author: EstasiaDevelopment
+main: de.mcestasia.estasiavanish.EstasiaVanishBukkitPlugin
+api-version: 1.18
+
+commands:
+  vanish:
+    aliases: [ v ]
+  vanishreload:
+    aliases: [ vr ]
